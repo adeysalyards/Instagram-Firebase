@@ -8,18 +8,36 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
 
+    @IBOutlet weak var collectionView: UICollectionView!
+    let reuseIdentifier = "CellIdentifier"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.backgroundColor = UIColor.whiteColor()
     }
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 12
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CellIdentifier", forIndexPath: indexPath) as! CollectionViewCell
+        
+        cell.captionLabel.text = "Nah, my dog is cuter."
+        cell.imageView.backgroundColor = UIColor.blueColor()
+        
+        return cell
+    }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
     }
-
 
 }
 
